@@ -3,7 +3,7 @@ package com.alexander.domain.dto;
 import java.util.List;
 
 /**
- * DTO для передачи параметров опроса URL адресов
+ * DTO для хранения и передачи параметров мониторинга
  */
 
 public class QuerySettings {

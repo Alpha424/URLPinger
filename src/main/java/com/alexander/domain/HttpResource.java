@@ -1,8 +1,8 @@
 package com.alexander.domain;
 /**
- * Класс, представляющий собой сущность интернет-ресурса. Агрегирует в себе объект класса QueryAttempt, содержащий информацию о последнем запросе к данному ресурсу
+ * Класс, представляющий собой сущность HTTP интернет-ресурса. Агрегирует в себе объект класса QueryAttempt, содержащий информацию о последнем запросе к данному ресурсу
  */
-public class Resource {
+public class HttpResource {
     /**
      * Адрес ресурса
      */
@@ -13,7 +13,7 @@ public class Resource {
      */
     private QueryAttempt lastQueryStatus;
 
-    public Resource(String url) {
+    public HttpResource(String url) {
         setUrl(url);
     }
 
@@ -39,7 +39,7 @@ public class Resource {
 
     @Override
     public String toString() {
-        return "Resource{" +
+        return "HttpResource{" +
                 "url='" + url + '\'' +
                 ", lastQueryStatus=" + lastQueryStatus +
                 '}';

@@ -1,6 +1,6 @@
 package com.alexander.service;
 
-import com.alexander.domain.Resource;
+import com.alexander.domain.HttpResource;
 
 import java.util.List;
 
@@ -9,5 +9,5 @@ import java.util.List;
  */
 
 public interface URLQueryService {
-    List<Resource> getResourceStatuses();
+    List<HttpResource> getResourceStatuses();
 }

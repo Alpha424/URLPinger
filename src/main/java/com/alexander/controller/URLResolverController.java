@@ -1,6 +1,6 @@
 package com.alexander.controller;
 
-import com.alexander.domain.Resource;
+import com.alexander.domain.HttpResource;
 import com.alexander.domain.dto.QuerySettings;
 import com.alexander.service.ScheduledURLQueryService;
 import org.springframework.http.HttpStatus;
@@ -26,10 +26,10 @@ public class URLResolverController {
 
     /**
      * Метод-endpoint (HTTP GET) для получения текущего статуса всех добавленных URL
-     * @return Список объектов типа Resource, содержащих информацию о ресурсе и последней попытке обращения к нему
+     * @return Список объектов типа HttpResource, содержащих информацию о ресурсе и последней попытке обращения к нему
      */
     @GetMapping("/query")
-    public ResponseEntity<List<Resource>> getCurrentStatus() {
+    public ResponseEntity<List<HttpResource>> getCurrentStatus() {
         return new ResponseEntity<>(this.urlQueryService.getResourceStatuses(), HttpStatus.OK);
     }
 

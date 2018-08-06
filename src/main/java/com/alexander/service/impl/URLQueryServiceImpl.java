@@ -1,12 +1,11 @@
 package com.alexander.service.impl;
 
 import com.alexander.ConstantValues;
-import com.alexander.domain.Resource;
+import com.alexander.domain.HttpResource;
 import com.alexander.domain.dto.QuerySettings;
 import com.alexander.exception.InvalidQuerySettingsException;
 import com.alexander.service.QueryMethod;
 import com.alexander.service.ScheduledURLQueryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -29,9 +28,9 @@ public class URLQueryServiceImpl implements ScheduledURLQueryService {
      */
     private QueryMethod queryMethod;
     /**
-     * Список объектов типа Resource, представляющих собой интернет ресурсы с информацией об их последнем статусе
+     * Список объектов типа HttpResource, представляющих собой интернет ресурсы с информацией об их последнем статусе
      */
-    private List<Resource> resources;
+    private List<HttpResource> httpResources;
     /**
      * Объект, содержащий текущие настройки мониторинга
      */
@@ -47,7 +46,7 @@ public class URLQueryServiceImpl implements ScheduledURLQueryService {
 
     public URLQueryServiceImpl(QueryMethod queryMethod) {
         this.queryMethod = queryMethod;
-        this.resources = new ArrayList<>();
+        this.httpResources = new ArrayList<>();
         this.querySettings = ConstantValues.DEFAULT_QUERY_SETTINGS;
     }
 
@@ -74,15 +73,15 @@ public class URLQueryServiceImpl implements ScheduledURLQueryService {
         if(settings.getQueryInterval() <= 0) {
             throw new InvalidQuerySettingsException(INVALID_QUERY_INTERVAL_MESSAGE);
         }
-        this.resources.clear();
-        this.resources.addAll(settings.getUrls().stream().map(Resource::new).collect(Collectors.toList()));
+        this.httpResources.clear();
+        this.httpResources.addAll(settings.getUrls().stream().map(HttpResource::new).collect(Collectors.toList()));
         this.querySettings = settings;
         scheduleUpdateTask(); // Заводим таймер заново с новым интервалом
     }
 
     @Override
-    public List<Resource> getResourceStatuses() {
-        return resources;
+    public List<HttpResource> getResourceStatuses() {
+        return httpResources;
     }
 
     /**
@@ -92,9 +91,9 @@ public class URLQueryServiceImpl implements ScheduledURLQueryService {
 
         @Override
         public void run() {
-            for (Resource resource : resources) {
+            for (HttpResource httpResource : httpResources) {
                 // Запускаем задачу опроса ресурса в отдельном потоке для каждого ресурса чтобы долгий ответ от одного URL не блокировал опрос остальных
-                Thread resourceQueryThread = new Thread(new ResourceQueryTask(resource));
+                Thread resourceQueryThread = new Thread(new ResourceQueryTask(httpResource));
                 resourceQueryThread.setDaemon(true); //чтобы не мешать преждевременному закрытию приложения
                 resourceQueryThread.start();
             }
@@ -102,15 +101,15 @@ public class URLQueryServiceImpl implements ScheduledURLQueryService {
     }
 
     private class ResourceQueryTask implements Runnable {
-        private final Resource resourceToQuery;
+        private final HttpResource httpResourceToQuery;
 
-        private ResourceQueryTask(Resource resourceToQuery) {
-            this.resourceToQuery = resourceToQuery;
+        private ResourceQueryTask(HttpResource httpResourceToQuery) {
+            this.httpResourceToQuery = httpResourceToQuery;
         }
 
         @Override
         public void run() {
-            queryMethod.queryResource(resourceToQuery);
+            queryMethod.queryResource(httpResourceToQuery);
         }
     }
 

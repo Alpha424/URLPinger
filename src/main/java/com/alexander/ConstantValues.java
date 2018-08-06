@@ -14,8 +14,8 @@ public class ConstantValues {
      */
     public static final QuerySettings DEFAULT_QUERY_SETTINGS = new QuerySettings();
     static {
-        DEFAULT_QUERY_SETTINGS.setQueryInterval(10); // интервал запроса по умолчанию
-        DEFAULT_QUERY_SETTINGS.setUrls(new ArrayList<>()); // изначально пустой список URL
+        DEFAULT_QUERY_SETTINGS.setQueryInterval(10); // Временной интервал между запросами по умолчанию
+        DEFAULT_QUERY_SETTINGS.setUrls(new ArrayList<>()); // Изначально пустой список URL
     }
 
     /**
@@ -25,7 +25,7 @@ public class ConstantValues {
         public static final String HTTP_RESOURCE_AVAILABLE_MESSAGE = "Ресурс доступен по протоколу HTTP";
         public static final String URL_MALFORMED_MESSAGE = "Недействительный URL";
         public static final String INVALID_QUERY_INTERVAL_MESSAGE = "Значение интервала должно быть больше нуля";
-        public static final String RESOURCE_QUERY_PENDING = "Запрос на данный ресурс отправлен. Ожидается ответ.";
-        public static final String RESOURCE_QUERY_TIMEOUT = "Время ожидания ответа от ресурса истекло";
+        public static final String RESOURCE_QUERY_PENDING_MESSAGE = "Запрос на данный ресурс отправлен. Ожидается ответ.";
+        public static final String RESOURCE_QUERY_TIMEOUT_MESSAGE = "Время ожидания ответа от ресурса истекло";
     }
 }
