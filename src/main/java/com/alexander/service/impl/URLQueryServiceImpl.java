@@ -100,7 +100,13 @@ public class URLQueryServiceImpl implements ScheduledURLQueryService {
         }
     }
 
+    /**
+     * Класс, описывающий задачу опроса состояния одного ресурса (URL)
+     */
     private class ResourceQueryTask implements Runnable {
+        /**
+         * Ресурс, доступность которого необходимо выяснить
+         */
         private final HttpResource httpResourceToQuery;
 
         private ResourceQueryTask(HttpResource httpResourceToQuery) {
