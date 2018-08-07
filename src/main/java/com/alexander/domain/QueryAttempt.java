@@ -12,7 +12,7 @@ public class QueryAttempt {
     /**
      * Время запроса
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:MM:ss", timezone = "GMT+3")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+3")
     private Date time;
 
     /**
